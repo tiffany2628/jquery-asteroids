@@ -3,6 +3,6 @@ var url="https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=20
 $a.jax({
   url: url,
   success: function(results) {
-    
+    alert("Got back" + results.element_count + "asteroids");
   }
 })
