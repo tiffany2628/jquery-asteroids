@@ -9,16 +9,15 @@ $.ajax({
 
   var asteroids = results.near_earth_objects["2015-09-08"];
   var asteroids;
-  var currentRow;
+  var crruentRow;
   for(var i = 0; i < asteroids.length; i ++) {
 
-
+    if (i % 3 === 0){
       currentRow = $("<div></div>").addClass("row");
       $(".container").append(currentRow);
-
+    }
     makeName(asteroids[i], currentRow);
-    makeSize(asteroids[i], currentRow);
-    makeClose(asteroids[i], currentRow);
+
   }
   }
 });
@@ -29,35 +28,5 @@ function makeName(asteroid, row){
   var name = $("<h3></h3>").html(asteroid.name);
 
   $(column).append(name);
-  $(row).append(column);
-}
-
-function makeSize(asteroid, row) {
-  var column = $("<div></div>").addClass("col-md-4");
-  // TODO: I should calculate the averag size of the asteroid, rather than just
-  // use it's max diameter
-  var size = $("<h4></h4>").html(asteroid.estimated_diameter.feet.estimated_diameter_max);
-
-  $(column).append(size);
-  $(row).append(column);
-}
-
-// This function is used to create the third column, which contains close
-// approach data about this asteroid.
-function makeClose(asteroid,row) {
-  var column = $("<div></div>").addClass("col-md-4");
-  var speed = $("<h4></h4>").html(asteroid.close_approach_data[0].relative_velocity.miles_per_hour);
-  var distance = $("<h4></h4>").html(asteroid.close_approach_data[0].miss_distance.miles);
-
-  var hazard = $("<h4></h4>");
-  if(asteroid.is_potentially_hazardous_asteroid) {
-    $(hazard).html("Dangerous").addClass("text-danger");
-  } else {
-    $(hazard).html("Safe").addClass("text-success");
-  }
-
-  $(column).append(speed);
-  $(column).append(distance);
-  $(column).append(hazard);
   $(row).append(column);
 }
